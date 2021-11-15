@@ -37,7 +37,7 @@ o.validateRefreshToken = async function validateRefreshToken(refreshToken, userI
   if (typeof found === 'undefined') return false;
 
   if (found.expiredAt <= Date.now()) { // expired, pop from db
-    user.userTokens = user.userTokens.filter((token) => token.value !== refreshToken);
+    user.refreshTokens = user.refreshTokens.filter((token) => token.value !== refreshToken);
     await user.save();
     return false;
   }
