@@ -84,7 +84,7 @@ o.generateAccessToken = function generateAccessToken(user) {
     },
     process.env.JWT_ACCESS_SECRET,
     {
-      expiresIn: process.env.ACCESS_EXP,
+      expiresIn: Number(process.env.ACCESS_EXP),
     },
   );
 };

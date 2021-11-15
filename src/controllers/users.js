@@ -10,7 +10,7 @@ const userController = module.exports = {};
 
 userController.createUser = async function createUser(req, res) {
   const { body } = req;
-  const { error, value: cleanedData } = registerValidator(body);
+  const { error, value: cleanedData } = registerValidator.validate(body);
 
   if (error) {
     const responseBody = { errors: [] };
@@ -77,6 +77,7 @@ userController.getAllUsers = async function getAllUsers(req, res) {
 };
 
 userController.getUser = async function getUser(req, res) {
+
   const { id } = req.params;
   let user;
 
@@ -85,8 +86,8 @@ userController.getUser = async function getUser(req, res) {
       // user only allowed to get its own data
       user = await User.findById(id);
 
-      req.status(user ? 200 : 404);
-      req.send({
+      res.status(user ? 200 : 404);
+      res.send({
         message: user ? 'Success' : 'Not found',
         result: user || null,
       });
@@ -104,7 +105,7 @@ userController.updateUser = async function updateUser(req, res) {
   const { id } = req.params;
   const { method, body } = req;
 
-  const { error, value: cleanedData } = userValidator(body);
+  const { error, value: cleanedData } = userValidator.validate(body);
 
   if (error) {
     const responseBody = { errors: [] };
@@ -118,10 +119,13 @@ userController.updateUser = async function updateUser(req, res) {
   }
 
   switch (method) {
-    case 'put':
+    case 'PUT':
       try {
         const updatedData = await User.findByIdAndUpdate(id, {
-          $set: { ...cleanedData },
+          $set: {
+            ...cleanedData,
+            updatedAt: Date.now(),
+          },
         }, { new: true });
         res.send({ message: 'User updated', result: updatedData });
       } catch (e) {
@@ -130,7 +134,7 @@ userController.updateUser = async function updateUser(req, res) {
       }
       break;
 
-    case 'patch':
+    case 'PATCH':
       // Currently unimplemented
       res.status(404);
       res.send({ message: 'Unimplemented' });

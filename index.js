@@ -17,6 +17,7 @@ app.use(bearerToken());
 app.use((req, res, next) => {
   console.log('Method=', req.method);
   console.log('req.headers=', req.headers);
+  console.log('req.body=', req.body);
   next();
 });
 
@@ -28,7 +29,6 @@ if (!module.parent) { // I'm stand alone
 
     app.listen(PORT, () => {
       console.log(`Running at http://localhost:${PORT}`);
-      console.log('secret', process.env.JWT_ACCESS_SECRET);
     });
   });
 } else {

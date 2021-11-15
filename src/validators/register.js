@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-module.export = Joi.object({
+module.exports = Joi.object({
   username: Joi.string()
     .alphanum()
     .min(3)

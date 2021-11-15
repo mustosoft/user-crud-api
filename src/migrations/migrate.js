@@ -8,8 +8,11 @@ async function migrateUser() {
   await createInitialUsers();
 }
 
-mongoose.connect(process.env.DB_STRING, async () => {
+mongoose.connect(process.env.DB_STRING, () => {
   console.log('Connected');
-  await migrateUser();
-  await this.disconnect();
+  migrateUser();
+  setTimeout(
+    () => { mongoose.connection.close(); process.exit(0); },
+    2000,
+  );
 });
