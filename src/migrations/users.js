@@ -20,17 +20,16 @@ migrations.createInitialUsers = async () => {
     },
   ];
 
-  users.forEach(async (user) => {
+  const inserted = await User.insertMany(users.map((user) => {
     const { password, ...userData } = user;
 
-    const newUser = new User({
+    return new User({
       ...userData,
       password: bcrypt.hashSync(password, bcrypt.genSaltSync()),
     });
+  }));
 
-    const savedUser = await newUser.save();
-    console.log('User saved:', savedUser);
-  });
+  console.log('inserted:', inserted);
 };
 
 migrations.resetUser = async () => {

@@ -10,9 +10,5 @@ async function migrateUser() {
 
 mongoose.connect(process.env.DB_STRING, () => {
   console.log('Connected');
-  migrateUser();
-  setTimeout(
-    () => { mongoose.connection.close(); process.exit(0); },
-    2000,
-  );
+  migrateUser().then(() => { mongoose.connection.close(); });
 });
