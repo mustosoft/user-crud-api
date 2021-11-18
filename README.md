@@ -25,3 +25,11 @@
   API Endpoint Root
   ---
      http://user-crud-api.mustosoft.my.id:3000/api
+
+  ## Postman Collection
+  ---
+  Download postman collection [here](./postman/User CRUD API.postman_collection.json)
+
+  ## Architecture Diagram
+  ![alt architecture](images/User CRUD API Diagram.drawio.svg)
+  
