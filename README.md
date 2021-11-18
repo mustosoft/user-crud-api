@@ -28,8 +28,10 @@
 
   ## Postman Collection
   ---
-  Download postman collection [here](./postman/User CRUD API.postman_collection.json)
+  Download postman collection [here](./postman/postman_collection.json)
+  
 
   ## Architecture Diagram
-  ![alt architecture](images/User CRUD API Diagram.drawio.svg)
-  
+  ---
+  ![alt architecture](images/diagram.svg)
+
